@@ -10,13 +10,13 @@
 # MAGIC
 # MAGIC | Object | Name |
 # MAGIC |---|---|
-# MAGIC | Catalog | `bootcamp_lab` |
-# MAGIC | Schema | `bootcamp_lab.nyc_taxi` |
-# MAGIC | Volume (files) | `bootcamp_lab.nyc_taxi.raw` → `/Volumes/bootcamp_lab/nyc_taxi/raw/trips/` |
+# MAGIC | Catalog | `live_spark_lab` |
+# MAGIC | Schema | `live_spark_lab.nyc_taxi` |
+# MAGIC | Volume (files) | `live_spark_lab.nyc_taxi.raw` → `/Volumes/live_spark_lab/nyc_taxi/raw/trips/` |
 
 # COMMAND ----------
 
-CATALOG = "bootcamp_lab"   # no permission to create catalogs? use your existing one, e.g. "workspace"
+CATALOG = "live_spark_lab"   # no permission to create catalogs? use your existing one, e.g. "workspace"
 SCHEMA = "nyc_taxi"
 RAW_PATH = f"/Volumes/{CATALOG}/{SCHEMA}/raw/trips"
 

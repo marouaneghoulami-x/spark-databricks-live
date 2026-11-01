@@ -26,29 +26,31 @@ average fare, plus the busiest pickup zones. Some rows are dirty, and analysts s
 Unity Catalog Volume to simulate daily file drops, so there's nothing to download.
 
 ```
-/Volumes/bootcamp_lab/nyc_taxi/raw/trips/*.csv
+/Volumes/live_spark_lab/nyc_taxi/raw/trips/*.csv
         │  Auto Loader
         ▼
 bronze_trips (streaming table) ─► silver_trips (streaming table + expectations)
                                         ├─► gold_daily_kpis       (materialized view)
                                         └─► gold_top_pickup_zips  (materialized view)
-All objects live in Unity Catalog: bootcamp_lab.nyc_taxi
+All objects live in Unity Catalog: live_spark_lab.nyc_taxi
 ```
 
 ### Run it
 
 Import this repo into your workspace (**Workspace → Create → Git folder**, paste the repo URL), then:
 
-1. **`lab/00_setup`**: creates the catalog `bootcamp_lab`, schema `nyc_taxi` and volume `raw`, then lands batch 01 of the files.
+1. **`lab/00_setup`**: creates the catalog `live_spark_lab`, schema `nyc_taxi` and volume `raw`, then lands batch 01 of the files.
    *No permission to create a catalog? Use an existing one (e.g. `workspace`) and update the name in the notebooks and the pipeline file.*
 2. **`lab/01_spark_under_the_hood`**: shows lazy evaluation, `explain()`, shuffles, jobs and stages.
 3. **Create the pipeline**: **Jobs & Pipelines → Create → ETL pipeline**
-   - Default catalog: `bootcamp_lab`, default schema: `nyc_taxi`
+   - Default catalog: `live_spark_lab`, default schema: `nyc_taxi`
    - Source code: the notebook `lab/pipeline/nyc_taxi_pipeline` (add it with **Add existing assets**, or set it in **Settings → Source code**). Don't run its cells yourself: the pipeline runs it.
    - Serverless compute → **Run pipeline**
 4. **`lab/02_new_data_arrives`**: lands batch 02 (the last 7 days + 3 dirty rows). **Run the pipeline again**:
    only the new files are read, and the dirty rows are dropped (see the *Data quality* tab of `silver_trips`).
 5. **`lab/03_unity_catalog`**: query gold, check expectations in the event log, read the volume, `GRANT`, open the lineage graph.
+
+6. **`lab/99_reset`** (optional): puts the lab back to day 1 (only batch 01) so you can run it again.
 
 **Live challenges**: each notebook has a "guess before you run" moment for the audience, plus a bonus
 "break it on purpose" step (`expect_or_fail`) in `02_new_data_arrives`.

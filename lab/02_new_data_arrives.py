@@ -10,7 +10,7 @@
 
 # COMMAND ----------
 
-CATALOG = "bootcamp_lab"
+CATALOG = "live_spark_lab"
 SCHEMA = "nyc_taxi"
 RAW_PATH = f"/Volumes/{CATALOG}/{SCHEMA}/raw/trips"
 

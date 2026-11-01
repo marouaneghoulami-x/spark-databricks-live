@@ -5,7 +5,7 @@
 
 -- COMMAND ----------
 
-USE CATALOG bootcamp_lab;
+USE CATALOG live_spark_lab;
 USE SCHEMA nyc_taxi;
 
 SHOW TABLES;
@@ -41,7 +41,7 @@ SELECT
   timestamp,
   details:flow_progress.data_quality.dropped_records AS dropped_records,
   details:flow_progress.data_quality.expectations    AS expectations
-FROM event_log(TABLE(bootcamp_lab.nyc_taxi.silver_trips))
+FROM event_log(TABLE(live_spark_lab.nyc_taxi.silver_trips))
 WHERE event_type = 'flow_progress'
   AND details:flow_progress.data_quality IS NOT NULL
 ORDER BY timestamp DESC;
@@ -52,11 +52,11 @@ ORDER BY timestamp DESC;
 
 -- COMMAND ----------
 
-LIST '/Volumes/bootcamp_lab/nyc_taxi/raw/trips/';
+LIST '/Volumes/live_spark_lab/nyc_taxi/raw/trips/';
 
 -- COMMAND ----------
 
-SELECT * FROM read_files('/Volumes/bootcamp_lab/nyc_taxi/raw/trips/batch_02/', format => 'csv', header => true)
+SELECT * FROM read_files('/Volumes/live_spark_lab/nyc_taxi/raw/trips/batch_02/', format => 'csv', header => true)
 LIMIT 5;
 
 -- COMMAND ----------
@@ -67,15 +67,15 @@ LIMIT 5;
 
 -- COMMAND ----------
 
-GRANT USE CATALOG ON CATALOG bootcamp_lab TO `account users`;
-GRANT USE SCHEMA ON SCHEMA bootcamp_lab.nyc_taxi TO `account users`;
-GRANT SELECT ON TABLE bootcamp_lab.nyc_taxi.gold_daily_kpis TO `account users`;
+GRANT USE CATALOG ON CATALOG live_spark_lab TO `account users`;
+GRANT USE SCHEMA ON SCHEMA live_spark_lab.nyc_taxi TO `account users`;
+GRANT SELECT ON TABLE live_spark_lab.nyc_taxi.gold_daily_kpis TO `account users`;
 
-SHOW GRANTS ON TABLE bootcamp_lab.nyc_taxi.gold_daily_kpis;
+SHOW GRANTS ON TABLE live_spark_lab.nyc_taxi.gold_daily_kpis;
 
 -- COMMAND ----------
 
 -- MAGIC %md
 -- MAGIC ## 5. Lineage
--- MAGIC Open **Catalog → bootcamp_lab → nyc_taxi → gold_daily_kpis → Lineage → See lineage graph**:
+-- MAGIC Open **Catalog → live_spark_lab → nyc_taxi → gold_daily_kpis → Lineage → See lineage graph**:
 -- MAGIC Volume files → bronze_trips → silver_trips → gold_daily_kpis, captured automatically.

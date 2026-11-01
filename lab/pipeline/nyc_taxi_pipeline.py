@@ -14,14 +14,14 @@
 # MAGIC
 # MAGIC We only declare **what** each table is. The pipeline works out the order (the DAG),
 # MAGIC the incremental processing, retries and the data quality metrics.
-# MAGIC Target catalog & schema are set in the pipeline settings: `bootcamp_lab.nyc_taxi`.
+# MAGIC Target catalog & schema are set in the pipeline settings: `live_spark_lab.nyc_taxi`.
 
 # COMMAND ----------
 
 from pyspark import pipelines as dp
 from pyspark.sql import functions as F
 
-RAW_PATH = "/Volumes/bootcamp_lab/nyc_taxi/raw/trips"   # same path as in 00_setup
+RAW_PATH = "/Volumes/live_spark_lab/nyc_taxi/raw/trips"   # same path as in 00_setup
 
 # COMMAND ----------
 
