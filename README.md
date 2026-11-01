@@ -44,7 +44,7 @@ Import this repo into your workspace (**Workspace → Create → Git folder**, p
 2. **`lab/01_spark_under_the_hood`**: shows lazy evaluation, `explain()`, shuffles, jobs and stages.
 3. **Create the pipeline**: **Jobs & Pipelines → Create → ETL pipeline**
    - Default catalog: `bootcamp_lab`, default schema: `nyc_taxi`
-   - Source code: `lab/pipeline/nyc_taxi_pipeline.py`
+   - Source code: the notebook `lab/pipeline/nyc_taxi_pipeline` (add it with **Add existing assets**, or set it in **Settings → Source code**). Don't run its cells yourself: the pipeline runs it.
    - Serverless compute → **Run pipeline**
 4. **`lab/02_new_data_arrives`**: lands batch 02 (the last 7 days + 3 dirty rows). **Run the pipeline again**:
    only the new files are read, and the dirty rows are dropped (see the *Data quality* tab of `silver_trips`).

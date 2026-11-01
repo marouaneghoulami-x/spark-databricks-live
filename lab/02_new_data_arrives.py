@@ -66,7 +66,7 @@ display(dbutils.fs.ls(RAW_PATH))
 
 # MAGIC %md
 # MAGIC ## 💥 Bonus: break it on purpose
-# MAGIC 1. In `pipeline/nyc_taxi_pipeline.py`, change `@dp.expect_or_drop("valid_fare", ...)` to `@dp.expect_or_fail("valid_fare", ...)`
+# MAGIC 1. In the notebook `pipeline/nyc_taxi_pipeline`, change `@dp.expect_or_drop("valid_fare", ...)` to `@dp.expect_or_fail("valid_fare", ...)`
 # MAGIC 2. Click **Run pipeline** with **Full refresh** → the update **fails** on the negative fare
 # MAGIC 3. Put back `expect_or_drop` and run it again with **Full refresh**
 # MAGIC

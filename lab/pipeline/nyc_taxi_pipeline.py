@@ -1,23 +1,34 @@
-"""
-NYC Taxi pipeline (Lakeflow Spark Declarative Pipelines).
+# Databricks notebook source
+# MAGIC %md
+# MAGIC # NYC Taxi pipeline (Lakeflow Declarative Pipelines)
+# MAGIC
+# MAGIC ⚠️ **Don't run this notebook's cells yourself.** Attach it as the source of an ETL pipeline and click **Run pipeline**.
+# MAGIC
+# MAGIC ```
+# MAGIC CSV files in a UC Volume
+# MAGIC   -> bronze_trips          (streaming table, Auto Loader: only new files are read)
+# MAGIC   -> silver_trips          (streaming table, typed + data quality expectations)
+# MAGIC   -> gold_daily_kpis       (materialized view)
+# MAGIC   -> gold_top_pickup_zips  (materialized view)
+# MAGIC ```
+# MAGIC
+# MAGIC We only declare **what** each table is. The pipeline works out the order (the DAG),
+# MAGIC the incremental processing, retries and the data quality metrics.
+# MAGIC Target catalog & schema are set in the pipeline settings: `bootcamp_lab.nyc_taxi`.
 
-  CSV files in a UC Volume
-      -> bronze_trips          (streaming table, Auto Loader: only new files are read)
-      -> silver_trips          (streaming table, typed + data quality expectations)
-      -> gold_daily_kpis       (materialized view)
-      -> gold_top_pickup_zips  (materialized view)
+# COMMAND ----------
 
-We only declare WHAT each table is. The pipeline works out the order (the DAG),
-the incremental processing, retries and the data quality metrics.
-Target catalog & schema are set in the pipeline settings: bootcamp_lab.nyc_taxi
-"""
 from pyspark import pipelines as dp
 from pyspark.sql import functions as F
 
 RAW_PATH = "/Volumes/bootcamp_lab/nyc_taxi/raw/trips"   # same path as in 00_setup
 
+# COMMAND ----------
 
-# ---------- BRONZE: raw data, as it arrived ----------
+# MAGIC %md ## 🥉 Bronze: raw data, as it arrived
+
+# COMMAND ----------
+
 @dp.table(comment="Raw taxi trips, loaded incrementally from CSV files with Auto Loader")
 def bronze_trips():
     return (
@@ -31,8 +42,12 @@ def bronze_trips():
         .withColumn("ingested_at", F.current_timestamp())
     )
 
+# COMMAND ----------
 
-# ---------- SILVER: clean & validated ----------
+# MAGIC %md ## 🥈 Silver: clean & validated
+
+# COMMAND ----------
+
 @dp.table(comment="Clean, typed trips. Invalid rows are dropped by expectations.")
 @dp.expect_or_drop("valid_fare", "fare_amount > 0")
 @dp.expect_or_drop("valid_distance", "trip_distance > 0")
@@ -57,8 +72,12 @@ def silver_trips():
         )
     )
 
+# COMMAND ----------
 
-# ---------- GOLD: business-ready answers ----------
+# MAGIC %md ## 🥇 Gold: business-ready answers
+
+# COMMAND ----------
+
 @dp.materialized_view(comment="Daily KPIs for the operations dashboard")
 def gold_daily_kpis():
     return (
@@ -73,6 +92,7 @@ def gold_daily_kpis():
         )
     )
 
+# COMMAND ----------
 
 @dp.materialized_view(comment="Top 10 pickup zip codes by number of trips")
 def gold_top_pickup_zips():
