@@ -5,20 +5,17 @@ Speakers: **Marouane Ghoulami** (Senior Data Engineer), **Mohammed Errakho** (Se
 
 | Folder | What's inside |
 |---|---|
-| [`slides/`](slides/) | The presentation (34 slides, speaker notes included) |
+| [`slides/`](slides/) | The presentation (17 slides, speaker notes included) |
 | [`lab/`](lab/) | The hands-on lab: notebooks + the Lakeflow pipeline |
 | [`cover/`](cover/) | Announcement visuals (16:9 and 4:5) |
 
-## The storyline
+## The plan (~1h30)
 
-Each chapter answers the question the previous one raised:
-
-1. **The problem**: data no longer fits on one machine → we need many machines
-2. **Apache Spark**: distributed + in-memory + simple API → partitions processed in parallel
-3. **Architecture**: driver (brain), cluster manager (landlord), executors (muscles)
-4. **Execution**: lazy transformations → Catalyst → narrow vs wide (shuffle) → job → stages → tasks
-5. **Databricks**: managed Spark, Delta Lake, Unity Catalog, Lakeflow Declarative Pipelines, medallion
-6. **Lab**: build it
+| Part | Time | What |
+|---|---|---|
+| Concepts | ~35 min | 15 slides: why Spark (Hadoop was too slow), architecture, how code executes, Databricks, Unity Catalog, Lakeflow |
+| Live lab | ~45 min | Build the pipeline in Databricks, with 3 audience challenges |
+| Q&A | rest | |
 
 ## The lab
 
@@ -52,5 +49,8 @@ Import this repo into your workspace (**Workspace → Create → Git folder**, p
 4. **`lab/02_new_data_arrives`**: lands batch 02 (the last 7 days + 3 dirty rows). **Run the pipeline again**:
    only the new files are read, and the dirty rows are dropped (see the *Data quality* tab of `silver_trips`).
 5. **`lab/03_unity_catalog`**: query gold, check expectations in the event log, read the volume, `GRANT`, open the lineage graph.
+
+**Live challenges**: each notebook has a "guess before you run" moment for the audience, plus a bonus
+"break it on purpose" step (`expect_or_fail`) in `02_new_data_arrives`.
 
 Everything runs on serverless compute, so it works with the free **Databricks Free Edition**.

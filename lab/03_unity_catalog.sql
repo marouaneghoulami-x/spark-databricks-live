@@ -12,11 +12,20 @@ SHOW TABLES;
 
 -- COMMAND ----------
 
--- MAGIC %md ## 1. The answers the business asked for
+-- MAGIC %md
+-- MAGIC ## 1. The answers the business asked for
+-- MAGIC 📈 Under the result, click **+ → Visualization → Line**: `pickup_date` on X, `revenue` on Y.
 
 -- COMMAND ----------
 
 SELECT * FROM gold_daily_kpis ORDER BY pickup_date;
+
+-- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ## 🎯 Challenge 3: guess before you run!
+-- MAGIC NYC zip codes: 10001 (Midtown / Penn Station), 10019 (Midtown West), 11430 (JFK Airport)…
+-- MAGIC **Which pickup zip is the busiest?** Answer in the comments, then run the cell.
 
 -- COMMAND ----------
 

@@ -56,4 +56,18 @@ display(dbutils.fs.ls(RAW_PATH))
 # COMMAND ----------
 
 # MAGIC %md
-# MAGIC ✅ Now go to **Jobs & Pipelines → your pipeline → Run pipeline**.
+# MAGIC ## 🎯 Challenge 2: guess before you run!
+# MAGIC When we run the pipeline again, how many rows will `bronze_trips` read: **all the files**, or only the new ones?
+# MAGIC And how many rows will the expectations drop from this batch?
+# MAGIC
+# MAGIC ✅ Now go to **Jobs & Pipelines → your pipeline → Run pipeline** and check the numbers on the graph.
+
+# COMMAND ----------
+
+# MAGIC %md
+# MAGIC ## 💥 Bonus: break it on purpose
+# MAGIC 1. In `pipeline/nyc_taxi_pipeline.py`, change `@dp.expect_or_drop("valid_fare", ...)` to `@dp.expect_or_fail("valid_fare", ...)`
+# MAGIC 2. Click **Run pipeline** with **Full refresh** → the update **fails** on the negative fare
+# MAGIC 3. Put back `expect_or_drop` and run it again with **Full refresh**
+# MAGIC
+# MAGIC That's how you stop bad data from ever reaching your dashboard.

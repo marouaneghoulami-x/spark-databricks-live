@@ -45,6 +45,13 @@ display(by_zip.orderBy(F.desc("trips")).limit(10))
 # COMMAND ----------
 
 # MAGIC %md
+# MAGIC ## 🎯 Challenge 1: guess before you run!
+# MAGIC How many **shuffles** (`Exchange`) will Spark need for `clean`? And for `by_zip`?
+# MAGIC Write your answer in the comments, then run the next two cells.
+
+# COMMAND ----------
+
+# MAGIC %md
 # MAGIC ## 3. Narrow vs wide: look for the `Exchange`
 # MAGIC * `clean` only has narrow transformations (filter, select) → **no Exchange**
 # MAGIC * `by_zip` has a `groupBy` → **Exchange = shuffle = new stage**
